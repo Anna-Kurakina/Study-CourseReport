@@ -1,0 +1,92 @@
+@prefix ind: <URN:inds:> .
+@prefix prop: <URN:prop:> .
+@prefix classes: <URN:class> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+
+#Define the Process
+ind:proc0 a classes:Process;
+	rdfs:label "Digit Recognition";
+	rdf:isDefinedBy	"Intelligent systems Class, Team 5";
+	prop:hasKPI ind:kpi1, ind:kpi2, ind:kpi3, ind:kpi4, ind:kpi5;
+        prop:hasResourse ind:res1, ind:res2, ind:res3;
+        prop:hasInput ind:in;
+        prop:hasOutput ind:out.
+
+#Define KPIs
+ind:kpi1 a classes:KPIs;
+        prop:hasInterval ind:Interval1;
+        rdfs:label "Accuracy".
+
+ind:kpi2 a classes:KPIs;
+        rdfs:label "Data normalization".
+
+ind:kpi3 a classes:KPIs;
+        rdfs:label "Data resizing".
+
+ind:kpi4 a classes:KPIs;
+        rdfs:label "Optimal type of model".
+
+ind:kpi5 a classes:KPIs;
+        rdfs:label "Image pre-processing".
+
+#Define Interval1
+ind:Interval1 a classes:Interval;
+        prop:hasMin "90";
+        prop:hasMax "100".
+
+#Define Resourses
+ind:res1 a classes:Resourses;
+        rdfs:label "MNIST Dataset".
+
+ind:res2 a classes:Resourses;
+        rdfs:label "ML Library".
+
+ind:res3 a classes:Resourses;
+        rdfs:label "Knowledge Base".
+
+#Define Input
+ind:in a classes:Input;
+        rdfs:label "Unrecognized Digit".
+
+#Define Output
+ind:out a classes:Output;
+        rdfs:label "Recognized Digit".
+
+#Define the SubProcess01
+ind:proc01 prop:SubProcess ind:proc0;
+        rdfs:label "Preprocess MNIST";
+        prop:hasKPI ind:kpi2, ind:kpi3;
+        prop:hasResourse ind:res1;
+        prop:hasInput ind:in.
+
+#Define the SubProcess02
+ind:proc02 prop:SubProcess ind:proc0;
+        rdfs:label "Build Model";
+        prop:hasKPI ind:kpi1, ind:kpi4;
+        prop:hasResourse ind:res1, ind:res2, ind:res3.
+
+#Define the SubProcess03
+ind:proc03 prop:SubProcess ind:proc0;
+        rdfs:label "Recognize Digit";
+        prop:hasKPI ind:kpi2, ind:kpi3, ind:kpi5;
+        prop:hasOutput ind:out.
+
+#Define the SubProcess21
+ind:proc21 prop:SubProcess ind:proc02;
+        rdfs:label "Create Model";
+        prop:hasKPI ind:kpi4;
+        prop:hasResourse ind:res2, ind:res3.
+
+#Define the SubProcess22
+ind:proc22 prop:SubProcess ind:proc02;
+        rdfs:label "Train Model";
+        prop:hasResourse ind:res1, ind:res2.
+
+#Define the SubProcess23
+ind:proc23 prop:SubProcess ind:proc02;
+        rdfs:label "Validate Model";
+        prop:hasKPI ind:kpi1;
+        prop:hasResourse ind:res1, ind:res2.

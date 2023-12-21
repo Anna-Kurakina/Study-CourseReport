@@ -1,0 +1,36 @@
+@prefix ind: <urn:inds:>.
+@prefix prop: <urn:prop:>.
+@prefix classes: <urn:classes:>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+classes:Process  a owl:Class.
+classes:KPIs  a owl:Class.
+classes:Resources  a owl:Class.
+classes:Interval  a owl:Class.
+classes:Input a owl:Class.
+classes:Output a owl:Class.
+
+prop:SubProcess  a owl:ObjectProperty.
+prop:hasKPI  a owl:ObjectProperty;
+            a owl:AsymmetricProperty;
+            a owl:IrreflexiveProperty.
+prop:hasInterval  a owl:ObjectProperty;
+                 rdfs:domain classes:KPI;
+                 rdfs:range classes:Interval.
+prop:hasMin  a owl:DatatypeProperty.
+prop:hasMax  a owl:DatatypeProperty.
+
+ind:KPIs  a owl:Class;
+		  rdfs:label "KPIs";
+          owl:oneOf (ind:kpi1 ind:kpi2 ind:kpi3 ind:kpi4 ind:kpi5).
+ind:Resources  a owl:Class;
+		  rdfs:label "Resources";
+          owl:oneOf (ind:res1 ind:res2 ind:res3).
+
+ind:KPI  a owl:Class;
+         owl:disjointWith ind:Resources.
+
+ind:Resources  a owl:Class;
+              owl:disjointWith ind:KPI.
